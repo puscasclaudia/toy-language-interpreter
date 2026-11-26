@@ -8,7 +8,7 @@ import interpreter.repository.IRepository;
 
 public class Controller {
     private final IRepository repo;
-    private boolean displayFlag;
+    private final boolean displayFlag;
 
     public Controller(IRepository repo, boolean displayFlag) {
         this.repo = repo;
@@ -17,23 +17,23 @@ public class Controller {
 
     public PrgState oneStep(PrgState state) throws MyException {
         var stack = state.getExeStack();
-        if (stack.isEmpty()) {
-            throw new StatementException("program state stack is empty");
-        }
+        if (stack.isEmpty()) throw new StatementException("program state stack is empty");
         IStmt crtStmt = stack.pop();
         return crtStmt.execute(state);
     }
 
     public void allStep() throws MyException {
         PrgState prg = repo.getCrtPrg();
-        if (displayFlag) {
-            System.out.println(prg);
-        }
+        repo.logPrgStateExec();
+        display(prg);
         while (!prg.getExeStack().isEmpty()) {
             oneStep(prg);
-            if (displayFlag) {
-                System.out.println(prg);
-            }
+            repo.logPrgStateExec();
+            display(prg);
         }
+    }
+
+    private void display(PrgState prg) {
+        if (displayFlag) System.out.println(prg);
     }
 }

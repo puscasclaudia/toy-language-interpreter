@@ -1,10 +1,11 @@
 package interpreter.model.adt;
 
 import interpreter.exceptions.ADTException;
+import java.util.List;
 
 public interface IList<T> {
     void add(T v);
     T get(int index) throws ADTException;
     int size();
-    IList<T> deepCopy();
+    List<T> toList();   // insertion order
 }

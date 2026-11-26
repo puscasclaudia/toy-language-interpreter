@@ -1,7 +1,5 @@
 package interpreter.exceptions;
 
 public class ADTException extends MyException {
-    public ADTException(String message) {
-        super(message);
-    }
+    public ADTException(String message) { super(message); }
 }

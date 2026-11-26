@@ -5,21 +5,17 @@ import interpreter.exceptions.StatementException;
 import interpreter.model.PrgState;
 import interpreter.model.exp.IExp;
 import interpreter.model.value.BoolValue;
-import interpreter.model.value.IValue;
 
-public record IfStmt(IExp cond, IStmt thenStmt, IStmt elseStmt) implements IStmt {
+public record IfStmt(IExp cond, IStmt thenS, IStmt elseS) implements IStmt {   // S5
     @Override
     public PrgState execute(PrgState state) throws MyException {
-        IValue val = cond.eval(state.getSymTable());
-        if (!(val instanceof BoolValue(boolean b))) {
-            throw new StatementException("conditional expression is not a boolean");
-        }
-        state.getExeStack().push(b ? thenStmt : elseStmt);
+        if (!(cond.eval(state.getSymTable()) instanceof BoolValue(boolean c)))
+            throw new StatementException("if condition " + cond + " is not a boolean");
+        state.getExeStack().push(c ? thenS : elseS);
         return state;
     }
-
     @Override
     public String toString() {
-        return "(if " + cond + " then " + thenStmt + " else " + elseStmt + ")";
+        return "(if (" + cond + ") then (" + thenS + ") else (" + elseS + "))";
     }
 }
