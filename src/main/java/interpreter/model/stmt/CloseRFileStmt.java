@@ -7,10 +7,10 @@ import interpreter.model.exp.IExp;
 import interpreter.model.value.StringValue;
 import java.io.IOException;
 
-public record CloseRFileStmt(IExp exp) implements IStmt {   // S10
+public record CloseRFileStmt(IExp exp) implements IStmt {
     @Override
     public PrgState execute(PrgState state) throws MyException {
-        if (!(exp.eval(state.getSymTable()) instanceof StringValue fileName))
+        if (!(exp.eval(state.getSymTable(),state.getHeap()) instanceof StringValue fileName))
             throw new StatementException("closeRFile: " + exp + " is not a string");
         var fileTable = state.getFileTable();
         if (!fileTable.isDefined(fileName))

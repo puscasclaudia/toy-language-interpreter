@@ -8,28 +8,32 @@ import interpreter.model.value.BoolValue;
 import interpreter.model.value.IValue;
 import interpreter.model.value.IntValue;
 import org.junit.jupiter.api.Test;
+import interpreter.model.adt.IHeap;
+import interpreter.model.adt.MyHeap;
 
 import static org.junit.jupiter.api.Assertions.*;
-
+import interpreter.model.adt.IHeap;
+import interpreter.model.adt.MyHeap;
 class LogicExpTest {
     private final IDictionary<String, IValue> symTable = new MyDictionary<>();
+    private final IHeap heap = new MyHeap();
     private static IExp booleanVal(boolean b) { return new ValueExp(new BoolValue(b)); }
 
     @Test
     void evaluatesLogicalAndCorrectly() throws MyException {
         IExp e = new LogicExp(LogicOp.AND, booleanVal(true), booleanVal(false));
-        assertEquals(new BoolValue(false), e.eval(symTable));
+        assertEquals(new BoolValue(false), e.eval(symTable,heap));
     }
 
     @Test
     void evaluatesLogicalOrCorrectly() throws MyException {
         IExp e = new LogicExp(LogicOp.OR, booleanVal(true), booleanVal(false));
-        assertEquals(new BoolValue(true), e.eval(symTable));
+        assertEquals(new BoolValue(true), e.eval(symTable,heap));
     }
 
     @Test
     void nonBooleanOperandThrowsException() {
         IExp invalidExp = new LogicExp(LogicOp.AND, booleanVal(true), new ValueExp(new IntValue(5)));
-        assertThrows(ExpressionException.class, () -> invalidExp.eval(symTable));
+        assertThrows(ExpressionException.class, () -> invalidExp.eval(symTable,heap));
     }
 }

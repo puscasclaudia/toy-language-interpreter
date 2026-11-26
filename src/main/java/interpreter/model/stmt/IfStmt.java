@@ -6,10 +6,10 @@ import interpreter.model.PrgState;
 import interpreter.model.exp.IExp;
 import interpreter.model.value.BoolValue;
 
-public record IfStmt(IExp cond, IStmt thenS, IStmt elseS) implements IStmt {   // S5
+public record IfStmt(IExp cond, IStmt thenS, IStmt elseS) implements IStmt {
     @Override
     public PrgState execute(PrgState state) throws MyException {
-        if (!(cond.eval(state.getSymTable()) instanceof BoolValue(boolean c)))
+        if (!(cond.eval(state.getSymTable(),state.getHeap()) instanceof BoolValue(boolean c)))
             throw new StatementException("if condition " + cond + " is not a boolean");
         state.getExeStack().push(c ? thenS : elseS);
         return state;

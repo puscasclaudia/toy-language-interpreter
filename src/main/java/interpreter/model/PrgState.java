@@ -20,7 +20,7 @@ public class PrgState {
     private IList<IValue> out;
     private IDictionary<StringValue, BufferedReader> fileTable;
     private IHeap heap;
-    private final IStmt originalProgram;   // statements are immutable records
+    private final IStmt originalProgram;
 
     public PrgState(IStack<IStmt> exeStack, IDictionary<String, IValue> symTable,
                     IList<IValue> out, IDictionary<StringValue, BufferedReader> fileTable, IHeap heap,

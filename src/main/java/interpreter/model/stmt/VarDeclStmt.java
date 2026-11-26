@@ -5,7 +5,7 @@ import interpreter.exceptions.StatementException;
 import interpreter.model.PrgState;
 import interpreter.model.type.IType;
 
-public record VarDeclStmt(String name, IType type) implements IStmt {   // S3
+public record VarDeclStmt(String name, IType type) implements IStmt {
     @Override
     public PrgState execute(PrgState state) throws MyException {
         var symTable = state.getSymTable();
