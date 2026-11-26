@@ -6,7 +6,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class MyDictionary<K, V> implements IDictionary<K, V> {
-    // LinkedHashMap: deterministic (insertion) order in logs
+
     private final Map<K, V> map = new LinkedHashMap<>();
 
     @Override public boolean isDefined(K key) { return map.containsKey(key); }

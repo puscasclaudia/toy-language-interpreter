@@ -7,5 +7,5 @@ public interface IStack<T> {
     void push(T v);
     T pop() throws ADTException;
     boolean isEmpty();
-    List<T> toList();   // top of the stack first
+    List<T> toList();
 }

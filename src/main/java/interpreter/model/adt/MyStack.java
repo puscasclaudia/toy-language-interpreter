@@ -18,7 +18,7 @@ public class MyStack<T> implements IStack<T> {
 
     @Override public boolean isEmpty() { return stack.isEmpty(); }
 
-    @Override public List<T> toList() { return new ArrayList<>(stack); } // head = top
+    @Override public List<T> toList() { return new ArrayList<>(stack); }
 
     @Override public String toString() { return stack.toString(); }
 }
