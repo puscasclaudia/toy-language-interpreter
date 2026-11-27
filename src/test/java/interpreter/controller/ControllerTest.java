@@ -108,10 +108,10 @@ class ControllerTest {
     }
 
     @Test
-    void logFileHasOneBlockPerStepPlusTheInitialState() throws Exception {
-        run(Examples.EX1);   // 5 steps (see section 3.3) + initial state = 6 blocks
+    void logFileHasTwoBlocksPerStepPlusTheInitialState() throws Exception {
+        run(Examples.EX1);   // 5 steps x 2 (before and after the collection) + initial state = 11
         String log = Files.readString(dir.resolve("log.txt"));
-        assertEquals(6, log.split("ExeStack:", -1).length - 1);
+        assertEquals(11, log.split("ExeStack:", -1).length - 1);
     }
 
     @Test

@@ -1,0 +1,178 @@
+ExeStack:
+(string varf; (varf = "test.in"; (openRFile(varf); (int varc; (readFile(varf, varc); (print(varc); (readFile(varf, varc); (print(varc); closeRFile(varf)))))))))
+SymTable:
+Out:
+FileTable:
+Heap:
+
+ExeStack:
+string varf
+(varf = "test.in"; (openRFile(varf); (int varc; (readFile(varf, varc); (print(varc); (readFile(varf, varc); (print(varc); closeRFile(varf))))))))
+SymTable:
+Out:
+FileTable:
+Heap:
+
+ExeStack:
+(varf = "test.in"; (openRFile(varf); (int varc; (readFile(varf, varc); (print(varc); (readFile(varf, varc); (print(varc); closeRFile(varf))))))))
+SymTable:
+varf --> ""
+Out:
+FileTable:
+Heap:
+
+ExeStack:
+varf = "test.in"
+(openRFile(varf); (int varc; (readFile(varf, varc); (print(varc); (readFile(varf, varc); (print(varc); closeRFile(varf)))))))
+SymTable:
+varf --> ""
+Out:
+FileTable:
+Heap:
+
+ExeStack:
+(openRFile(varf); (int varc; (readFile(varf, varc); (print(varc); (readFile(varf, varc); (print(varc); closeRFile(varf)))))))
+SymTable:
+varf --> "test.in"
+Out:
+FileTable:
+Heap:
+
+ExeStack:
+openRFile(varf)
+(int varc; (readFile(varf, varc); (print(varc); (readFile(varf, varc); (print(varc); closeRFile(varf))))))
+SymTable:
+varf --> "test.in"
+Out:
+FileTable:
+Heap:
+
+ExeStack:
+(int varc; (readFile(varf, varc); (print(varc); (readFile(varf, varc); (print(varc); closeRFile(varf))))))
+SymTable:
+varf --> "test.in"
+Out:
+FileTable:
+test.in
+Heap:
+
+ExeStack:
+int varc
+(readFile(varf, varc); (print(varc); (readFile(varf, varc); (print(varc); closeRFile(varf)))))
+SymTable:
+varf --> "test.in"
+Out:
+FileTable:
+test.in
+Heap:
+
+ExeStack:
+(readFile(varf, varc); (print(varc); (readFile(varf, varc); (print(varc); closeRFile(varf)))))
+SymTable:
+varf --> "test.in"
+varc --> 0
+Out:
+FileTable:
+test.in
+Heap:
+
+ExeStack:
+readFile(varf, varc)
+(print(varc); (readFile(varf, varc); (print(varc); closeRFile(varf))))
+SymTable:
+varf --> "test.in"
+varc --> 0
+Out:
+FileTable:
+test.in
+Heap:
+
+ExeStack:
+(print(varc); (readFile(varf, varc); (print(varc); closeRFile(varf))))
+SymTable:
+varf --> "test.in"
+varc --> 15
+Out:
+FileTable:
+test.in
+Heap:
+
+ExeStack:
+print(varc)
+(readFile(varf, varc); (print(varc); closeRFile(varf)))
+SymTable:
+varf --> "test.in"
+varc --> 15
+Out:
+FileTable:
+test.in
+Heap:
+
+ExeStack:
+(readFile(varf, varc); (print(varc); closeRFile(varf)))
+SymTable:
+varf --> "test.in"
+varc --> 15
+Out:
+15
+FileTable:
+test.in
+Heap:
+
+ExeStack:
+readFile(varf, varc)
+(print(varc); closeRFile(varf))
+SymTable:
+varf --> "test.in"
+varc --> 15
+Out:
+15
+FileTable:
+test.in
+Heap:
+
+ExeStack:
+(print(varc); closeRFile(varf))
+SymTable:
+varf --> "test.in"
+varc --> 32
+Out:
+15
+FileTable:
+test.in
+Heap:
+
+ExeStack:
+print(varc)
+closeRFile(varf)
+SymTable:
+varf --> "test.in"
+varc --> 32
+Out:
+15
+FileTable:
+test.in
+Heap:
+
+ExeStack:
+closeRFile(varf)
+SymTable:
+varf --> "test.in"
+varc --> 32
+Out:
+15
+32
+FileTable:
+test.in
+Heap:
+
+ExeStack:
+SymTable:
+varf --> "test.in"
+varc --> 32
+Out:
+15
+32
+FileTable:
+Heap:
+

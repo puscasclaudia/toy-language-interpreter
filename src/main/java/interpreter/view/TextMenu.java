@@ -19,7 +19,7 @@ public class TextMenu {
         while (true) {
             printMenu();
             System.out.print("Input the option: ");
-            if (!scanner.hasNextLine()) return;   // end of input
+            if (!scanner.hasNextLine()) return;
             Command c = commands.get(scanner.nextLine().strip());
             if (c == null) {
                 System.out.println("Invalid option");

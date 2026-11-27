@@ -29,8 +29,16 @@ public class Controller {
         while (!prg.getExeStack().isEmpty()) {
             oneStep(prg);
             repo.logPrgStateExec();
+            collectGarbage(prg);
+            repo.logPrgStateExec();
             display(prg);
         }
+    }
+
+    private void collectGarbage(PrgState prg) {
+        var roots = GarbageCollector.getAddrFromSymTable(prg.getSymTable().toMap().values());
+        prg.getHeap().setContent(
+                GarbageCollector.safeGarbageCollector(roots, prg.getHeap().getContent()));
     }
 
     private void display(PrgState prg) {

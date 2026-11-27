@@ -4,11 +4,13 @@ import interpreter.model.exp.*;
 import interpreter.model.stmt.*;
 import interpreter.model.type.*;
 import interpreter.model.value.*;
-
+import interpreter.model.type.RefType;
 public final class Examples {
     private Examples() {}
 
     private static IExp num(int n) { return new ValueExp(new IntValue(n)); }
+    private static final IType REF_INT = new RefType(new IntType());
+    private static final IType REF_REF_INT = new RefType(REF_INT);
 
     // Ex1: int v; v = 2; print(v)
     public static final IStmt EX1 = new CompStmt(new VarDeclStmt("v", new IntType()),
@@ -58,4 +60,50 @@ public final class Examples {
                                     new IfStmt(new RelationalExp(RelOp.LT, new VarExp("a"), new VarExp("b")),
                                             new PrintStmt(new VarExp("a")),
                                             new PrintStmt(new VarExp("b")))))));
+
+    // Ex6: Ref int v; new(v, 20); Ref Ref int a; new(a, v); print(v); print(a)
+    public static final IStmt EX6 = new CompStmt(new VarDeclStmt("v", REF_INT),
+            new CompStmt(new NewStmt("v", num(20)),
+                    new CompStmt(new VarDeclStmt("a", REF_REF_INT),
+                            new CompStmt(new NewStmt("a", new VarExp("v")),
+                                    new CompStmt(new PrintStmt(new VarExp("v")),
+                                            new PrintStmt(new VarExp("a")))))));
+
+    // Ex7: Ref int v; new(v, 20); Ref Ref int a; new(a, v); print(rH(v)); print(rH(rH(a)) + 5)
+    public static final IStmt EX7 = new CompStmt(new VarDeclStmt("v", REF_INT),
+            new CompStmt(new NewStmt("v", num(20)),
+                    new CompStmt(new VarDeclStmt("a", REF_REF_INT),
+                            new CompStmt(new NewStmt("a", new VarExp("v")),
+                                    new CompStmt(new PrintStmt(new ReadHeapExp(new VarExp("v"))),
+                                            new PrintStmt(new ArithExp(ArithOp.ADD,
+                                                    new ReadHeapExp(new ReadHeapExp(new VarExp("a"))),
+                                                    num(5))))))));
+
+    // Ex8: Ref int v; new(v, 20); print(rH(v)); wH(v, 30); print(rH(v) + 5)
+    public static final IStmt EX8 = new CompStmt(new VarDeclStmt("v", REF_INT),
+            new CompStmt(new NewStmt("v", num(20)),
+                    new CompStmt(new PrintStmt(new ReadHeapExp(new VarExp("v"))),
+                            new CompStmt(new WriteHeapStmt("v", num(30)),
+                                    new PrintStmt(new ArithExp(ArithOp.ADD,
+                                            new ReadHeapExp(new VarExp("v")),
+                                            num(5)))))));
+
+    // Ex9: Ref int v; new(v, 20); Ref Ref int a; new(a, v); new(v, 30); print(rH(rH(a)))
+    public static final IStmt EX9 = new CompStmt(new VarDeclStmt("v", REF_INT),
+            new CompStmt(new NewStmt("v", num(20)),
+                    new CompStmt(new VarDeclStmt("a", REF_REF_INT),
+                            new CompStmt(new NewStmt("a", new VarExp("v")),
+                                    new CompStmt(new NewStmt("v", num(30)),
+                                            new PrintStmt(new ReadHeapExp(
+                                                    new ReadHeapExp(new VarExp("a")))))))));
+
+    // Ex10: int v; v = 4; (while (v > 0) (print(v); v = v - 1)); print(v)
+    public static final IStmt EX10 = new CompStmt(new VarDeclStmt("v", new IntType()),
+            new CompStmt(new AssignStmt("v", num(4)),
+                    new CompStmt(new WhileStmt(
+                            new RelationalExp(RelOp.GT, new VarExp("v"), num(0)),
+                            new CompStmt(new PrintStmt(new VarExp("v")),
+                                    new AssignStmt("v", new ArithExp(ArithOp.SUB,
+                                            new VarExp("v"), num(1))))),
+                            new PrintStmt(new VarExp("v")))));
 }
